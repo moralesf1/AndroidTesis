@@ -24,14 +24,15 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     EditText usuario,password;
-    String url = "http://192.168.1.112:8000/android/authuser";
-
+    Conexion c = new Conexion();
+    String url = c.getConexion()+"android/authuser";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         usuario = (EditText)findViewById(R.id.usu);
         password = (EditText)findViewById(R.id.pass);
+        Log.v("conexion ",c.getConexion());
     }
 
     public void registrar(View v) {
