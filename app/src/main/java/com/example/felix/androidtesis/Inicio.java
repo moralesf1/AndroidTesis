@@ -1,6 +1,5 @@
 package com.example.felix.androidtesis;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import android.support.v4.app.FragmentManager;
 
 public class Inicio extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,7 +38,7 @@ public class Inicio extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -82,7 +82,7 @@ public class Inicio extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        Fragment fragment = null;
+        FragmentManager fragmentManager = getSupportFragmentManager();
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
@@ -92,17 +92,14 @@ public class Inicio extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.sesion) {
-            fragment = new Sesion();
+            Sesion sesion = new Sesion();
+            fragmentManager.beginTransaction().replace(R.id.content_inicio, sesion, sesion.getTag()).commit();
+            
             Toast.makeText(getApplicationContext(),"Sesion",Toast.LENGTH_LONG).show();
         } else if (id == R.id.registro) {
             Toast.makeText(getApplicationContext(),"Registro",Toast.LENGTH_LONG).show();
         }
-        if (fragment != null){
-            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content_inicio,fragment).commit();
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            drawer.closeDrawer(GravityCompat.START);
-        }
+
 
         return true;
     }
