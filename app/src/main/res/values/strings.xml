@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">AndroidTesis</string>
+    <string name="iniciar_sesion">Iniciar Sesion</string>
+    <string name="registrate">Registrate</string>
+    <string name="pass_hint">Clave</string>
+    <string name="user_hint">Usuario</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="correo">Correo</string>
+    <string name="rep_clave">Rep Clave</string>
+    <string name="volver">Volver</string>
+    <string name="registrar">Registrar</string>
 </resources>
