@@ -103,10 +103,10 @@ public class Inicio extends AppCompatActivity
         } else if (id == R.id.registro) {
 
             Bundle params = new Bundle();
-            String dato = "dato 1";
-            String dato2 = "dato 2";
-            Registro registro = Registro.newInstance(dato,dato2);
-            FragmentManager fragmentManager1 = getSupportFragmentManager();
+//            String dato = "dato 1";
+//            String dato2 = "dato 2";
+//            Registro registro = Registro.newInstance(dato,dato2);
+            Registro registro = new Registro();
             fragmentManager.beginTransaction().replace(R.id.content_inicio,registro,registro.TAG).commit();
             drawer.closeDrawer(GravityCompat.START);
         }
@@ -127,7 +127,7 @@ public class Inicio extends AppCompatActivity
     /**
      * Interfaz creada para recibir los datos del fragment Sesion
      */
-    public void onUserLogging(String usuario, String correo) {
-        Toast.makeText(mContext,correo,Toast.LENGTH_LONG).show();
+    public void onUserLogging(String datos) {
+        Toast.makeText(mContext,"esto es la actividad: "+datos,Toast.LENGTH_LONG).show();
     }
 }

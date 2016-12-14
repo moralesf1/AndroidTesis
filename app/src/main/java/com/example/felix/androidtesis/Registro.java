@@ -75,7 +75,7 @@ public class Registro extends Fragment {
                 onButtonPressed(Uri.parse("http://hola.com"));
             }
         });
-        Log.v("arguments",mParam1);
+//        Log.v("arguments",mParam1);
         return v;
     }
 

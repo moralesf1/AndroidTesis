@@ -7,7 +7,7 @@ import com.android.volley.toolbox.StringRequest;
  */
 
 public class Conexion {
-    private String conexion = "http://192.168.1.112:8000/";
+    private String conexion = "http://192.168.0.108:8000/";
 
     public String getConexion(){
         return this.conexion;
