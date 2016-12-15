@@ -28,7 +28,7 @@ public class Registro extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    Button registrarBTN;
     private OnFragmentInteractionListener mListener;
 
     public Registro() {
@@ -67,12 +67,11 @@ public class Registro extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_registro, container, false);
-        Button btn = (Button)v.findViewById(R.id.btnPrueba);
-
-        btn.setOnClickListener(new View.OnClickListener() {
+        registrarBTN = (Button)v.findViewById(R.id.registrarBTN);
+        registrarBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onButtonPressed(Uri.parse("http://hola.com"));
+
             }
         });
 //        Log.v("arguments",mParam1);
@@ -107,16 +106,8 @@ public class Registro extends Fragment {
     }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     *
-     * Interfaz por la cual se envian datos desde Fragment Registro a la actividad
+     * Interfaz por la cual se envian datos desde Fragment Registro a
+     * la activity, requiere que se implemente ese metodo en la activity
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

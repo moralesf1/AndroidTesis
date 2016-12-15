@@ -66,6 +66,7 @@
             android:layout_marginBottom="18dp"
             android:id="@+id/registroTXT"
             android:gravity="center" />
+
     </RelativeLayout>
 
 </FrameLayout>

@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.felix.androidtesis.Modelo.*;
+import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +34,7 @@ public class Sesion extends Fragment {
     private OnLogin mOnLogin;
     Conexion c = new Conexion();
     String url = c.getConexion()+"android/authuser";
+    Gson gson = new Gson();
     private AppCompatActivity mContext;
 
     interface OnLogin{
@@ -37,7 +43,7 @@ public class Sesion extends Fragment {
          *
          * @param datos
          */
-        void onUserLogging(String datos);
+        void onUserLogging(Usuario datos);
     }
     EditText usuario,password;
     Button loggin;
@@ -78,7 +84,13 @@ public class Sesion extends Fragment {
                                 @Override
                                 public void onResponse(String response) {
                                     if (mOnLogin != null){
-                                        mOnLogin.onUserLogging(response);
+                                        Usuario usuario = gson.fromJson(response,Usuario.class);
+                                        mOnLogin.onUserLogging(usuario);
+//                                        Log.v("respuesta ",usuario[0].getNombre());
+//                                        Usuario[] usuarios = new Usuario[]{new Usuario()};
+//                                        ArrayList<Usuario> usuarios1 = new ArrayList<Usuario>(Arrays.asList(usuarios));
+
+//                                        Toast.makeText(mContext,usuario.getEmail(),Toast.LENGTH_LONG).show();
                                     }
                                 }
                             },
@@ -112,7 +124,7 @@ public class Sesion extends Fragment {
             @Override
             public void onClick(View v) {
 //            Registro registro = Registro.newInstance("hola","hola2");
-                Registro registro = new Registro();
+            Registro registro = new Registro();
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_inicio,registro,registro.TAG).commit();
 

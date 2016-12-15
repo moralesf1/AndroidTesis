@@ -11,7 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.felix.androidtesis.Modelo.Usuario;
 
 public class Inicio extends AppCompatActivity
         /**
@@ -19,8 +22,9 @@ public class Inicio extends AppCompatActivity
          * Sesion.Onlogin es la interfaz creada en Sesion para hacer uso de datos enviado en VIVO sin recargar
          */
         implements NavigationView.OnNavigationItemSelectedListener, Registro.OnFragmentInteractionListener, Sesion.OnLogin {
-
+    public TextView nombreNav, correoNav;
     private AppCompatActivity mContext;
+    private NavigationView mNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +49,9 @@ public class Inicio extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        mNavigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
@@ -107,8 +112,10 @@ public class Inicio extends AppCompatActivity
 //            String dato2 = "dato 2";
 //            Registro registro = Registro.newInstance(dato,dato2);
             Registro registro = new Registro();
-            fragmentManager.beginTransaction().replace(R.id.content_inicio,registro,registro.TAG).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_inicio, registro, registro.TAG).commit();
             drawer.closeDrawer(GravityCompat.START);
+        } else if(id == R.id.LogOut){
+            logout();
         }
 
 
@@ -120,14 +127,62 @@ public class Inicio extends AppCompatActivity
      * Interfaz creada para recibir los datos del fragment Registro
      */
     public void onFragmentInteraction(Uri uri) {
-        Toast.makeText(getApplicationContext(),uri.toString(),Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), uri.toString(), Toast.LENGTH_LONG).show();
+    }
+    public void logout(){
+        Toast.makeText(mContext,"logoutbtn",Toast.LENGTH_LONG).show();
+        Menu menu = mNavigationView.getMenu();
+
+        MenuItem logout = menu.findItem(R.id.LogOut);
+        MenuItem sesion = menu.findItem(R.id.sesion);
+        MenuItem registro = menu.findItem(R.id.registro);
+
+
+        if (logout != null) {
+            logout.setVisible(false);
+        }
+        if (sesion != null){
+            sesion.setVisible(true);
+        }if (registro != null){
+            registro.setVisible(true);
+        }
+        nombreNav = (TextView) findViewById(R.id.nameNav);
+        correoNav = (TextView) findViewById(R.id.correoNav);
+        nombreNav.setText("Invitado");
+        correoNav.setText("");
     }
 
     @Override
     /**
      * Interfaz creada para recibir los datos del fragment Sesion
      */
-    public void onUserLogging(String datos) {
-        Toast.makeText(mContext,"esto es la actividad: "+datos,Toast.LENGTH_LONG).show();
+    public void onUserLogging(Usuario datos) {
+        nombreNav = (TextView) findViewById(R.id.nameNav);
+        correoNav = (TextView) findViewById(R.id.correoNav);
+//        NavigationView navigationView = (NavigationView)findViewById(R.id.nav_view);
+//        Menu menu = navigationView.getMenu();
+
+        Menu menu = mNavigationView.getMenu();
+
+        MenuItem logout = menu.findItem(R.id.LogOut);
+        MenuItem sesion = menu.findItem(R.id.sesion);
+        MenuItem registro = menu.findItem(R.id.registro);
+
+
+        if (logout != null) {
+            logout.setVisible(true);
+        }
+        if (sesion != null){
+            sesion.setVisible(false);
+        }if (registro != null){
+            registro.setVisible(false);
+        }
+
+//        menu.add(datos.getEmail());
+
+        nombreNav.setText(datos.getNombre() + " " + datos.getApellido());
+        correoNav.setText(datos.getEmail());
+//        Toast.makeText(mContext,"esto es la actividad: "+datos.getEmail(),Toast.LENGTH_LONG).show();
+
     }
 }

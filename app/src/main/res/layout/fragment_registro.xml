@@ -4,16 +4,75 @@
     android:layout_height="match_parent"
     tools:context="com.example.felix.androidtesis.Registro">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
-    <Button
-        android:text="Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnPrueba" />
 
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="@string/nombre"
+            android:ems="10"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="19dp"
+            android:id="@+id/nombre" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="@string/apellido"
+            android:ems="10"
+            android:layout_below="@+id/nombre"
+            android:layout_alignStart="@+id/nombre"
+            android:layout_marginTop="37dp"
+            android:id="@+id/apellido" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="@string/correo"
+            android:ems="10"
+            android:layout_below="@+id/apellido"
+            android:layout_alignStart="@+id/apellido"
+            android:layout_marginTop="30dp"
+            android:id="@+id/correo" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:hint="@string/pass_hint"
+            android:layout_below="@+id/correo"
+            android:layout_alignEnd="@+id/correo"
+            android:layout_marginTop="31dp"
+            android:id="@+id/clave" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="@string/rep_clave"
+            android:ems="10"
+            android:layout_below="@+id/clave"
+            android:layout_alignStart="@+id/clave"
+            android:layout_marginTop="32dp"
+            android:id="@+id/rep_clave" />
+
+        <Button
+            android:text="@string/registrar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/registrarBTN"
+            android:layout_below="@+id/rep_clave"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="48dp" />
+
+    </RelativeLayout>
 </FrameLayout>

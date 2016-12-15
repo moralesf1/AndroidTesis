@@ -10,7 +10,7 @@ public class Conexion {
     private String conexion = "http://192.168.0.108:8000/";
 
     public String getConexion(){
-        return this.conexion;
+        return conexion;
     }
 
 
