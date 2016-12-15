@@ -1,5 +1,6 @@
 package com.example.felix.androidtesis;
 
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -130,13 +131,18 @@ public class Inicio extends AppCompatActivity
         Toast.makeText(getApplicationContext(), uri.toString(), Toast.LENGTH_LONG).show();
     }
     public void logout(){
-        Toast.makeText(mContext,"logoutbtn",Toast.LENGTH_LONG).show();
         Menu menu = mNavigationView.getMenu();
 
         MenuItem logout = menu.findItem(R.id.LogOut);
         MenuItem sesion = menu.findItem(R.id.sesion);
         MenuItem registro = menu.findItem(R.id.registro);
 
+        SharedPreferences sh = mContext.getPreferences(mContext.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sh.edit();
+        editor.putInt("id",0);
+        editor.putString("full_name","");
+        editor.putString("correo","");
+        editor.apply();
 
         if (logout != null) {
             logout.setVisible(false);
@@ -161,6 +167,12 @@ public class Inicio extends AppCompatActivity
         correoNav = (TextView) findViewById(R.id.correoNav);
 //        NavigationView navigationView = (NavigationView)findViewById(R.id.nav_view);
 //        Menu menu = navigationView.getMenu();
+        SharedPreferences sh = mContext.getPreferences(mContext.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sh.edit();
+        editor.putInt("id",datos.getId());
+        editor.putString("full_name",datos.getNombre()+" "+datos.getApellido());
+        editor.putString("correo",datos.getEmail());
+        editor.apply();
 
         Menu menu = mNavigationView.getMenu();
 
