@@ -4,3 +4,5 @@
 /.idea/
 /build
 Would skip repository volley/
+app/libs/
+/app/src/main/java/com/example/felix/androidtesis/Conexion.java
