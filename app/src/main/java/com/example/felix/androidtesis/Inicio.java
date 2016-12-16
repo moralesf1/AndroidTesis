@@ -10,8 +10,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +28,8 @@ public class Inicio extends AppCompatActivity
     public TextView nombreNav, correoNav;
     private AppCompatActivity mContext;
     private NavigationView mNavigationView;
+    FragmentManager mFragmentManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,7 @@ public class Inicio extends AppCompatActivity
 //        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -52,6 +57,35 @@ public class Inicio extends AppCompatActivity
 
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
+//        de esta manera obtego el header del navigation view
+        View Hview = mNavigationView.getHeaderView(0);
+        SharedPreferences sharedPref = getSharedPreferences("usuario",mContext.MODE_PRIVATE);
+        int id = sharedPref.getInt("id",0);
+        Log.v("Shared: ",""+id);
+        Menu menu = mNavigationView.getMenu();
+        MenuItem logout = menu.findItem(R.id.LogOut);
+        MenuItem sesion = menu.findItem(R.id.sesion);
+        MenuItem registro = menu.findItem(R.id.registro);
+        if (id != 0){
+            Log.v("Logged ","Si");
+            nombreNav = (TextView)Hview.findViewById(R.id.nameNav);
+            correoNav = (TextView)Hview.findViewById(R.id.correoNav);
+            if (nombreNav != null){
+                nombreNav.setText(sharedPref.getString("full_name","Invitado"));
+            }
+            if (correoNav != null){
+                correoNav.setText(sharedPref.getString("correo",""));
+            }
+            logout.setVisible(true);
+            sesion.setVisible(false);
+            registro.setVisible(false);
+        }
+
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
 
     }
 
@@ -92,9 +126,11 @@ public class Inicio extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        int id = item.getItemId();
         FragmentManager fragmentManager = getSupportFragmentManager();
-        if (id == R.id.nav_camera) {
+
+        int id = item.getItemId();
+        if (id == R.id.inicio) {
+
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
@@ -108,13 +144,7 @@ public class Inicio extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else if (id == R.id.registro) {
 
-            Bundle params = new Bundle();
-//            String dato = "dato 1";
-//            String dato2 = "dato 2";
-//            Registro registro = Registro.newInstance(dato,dato2);
-            Registro registro = new Registro();
-            fragmentManager.beginTransaction().replace(R.id.content_inicio, registro, registro.TAG).commit();
-            drawer.closeDrawer(GravityCompat.START);
+            registro();
         } else if(id == R.id.LogOut){
             logout();
         }
@@ -132,17 +162,15 @@ public class Inicio extends AppCompatActivity
     }
     public void logout(){
         Menu menu = mNavigationView.getMenu();
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
 
         MenuItem logout = menu.findItem(R.id.LogOut);
         MenuItem sesion = menu.findItem(R.id.sesion);
         MenuItem registro = menu.findItem(R.id.registro);
 
-        SharedPreferences sh = mContext.getPreferences(mContext.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sh.edit();
-        editor.putInt("id",0);
-        editor.putString("full_name","");
-        editor.putString("correo","");
-        editor.apply();
+        SharedPreferences sp = getSharedPreferences("usuario",mContext.MODE_PRIVATE);
+        sp.edit().clear().apply();
 
         if (logout != null) {
             logout.setVisible(false);
@@ -157,18 +185,37 @@ public class Inicio extends AppCompatActivity
         nombreNav.setText("Invitado");
         correoNav.setText("");
     }
+    public void registro(){
+//            Bundle params = new Bundle();
+
+//            String dato = "dato 1";
+//            String dato2 = "dato 2";
+//            Registro registro = Registro.newInstance(dato,dato2);
+        mFragmentManager = getSupportFragmentManager();
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        Registro registro = new Registro();
+        mFragmentManager.beginTransaction().replace(R.id.content_inicio, registro, registro.TAG).commit();
+        drawer.closeDrawer(GravityCompat.START);
+    }
 
     @Override
     /**
      * Interfaz creada para recibir los datos del fragment Sesion
      */
     public void onUserLogging(Usuario datos) {
+//        NavigationView navigationView = (NavigationView)findViewById(R.id.nav_view);// el NavigationView es el que esta importando en la activity principal como un widget
+//        Menu menu = navigationView.getMenu();
+//        SharedPreferences sh = mContext.getPreferences(mContext.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sh.edit();
+//        editor.putInt("id",datos.getId());
+//        editor.putString("full_name",datos.getNombre()+" "+datos.getApellido());
+//        editor.putString("correo",datos.getEmail());
+//        editor.apply();
+
         nombreNav = (TextView) findViewById(R.id.nameNav);
         correoNav = (TextView) findViewById(R.id.correoNav);
-//        NavigationView navigationView = (NavigationView)findViewById(R.id.nav_view);
-//        Menu menu = navigationView.getMenu();
-        SharedPreferences sh = mContext.getPreferences(mContext.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sh.edit();
+        SharedPreferences sp = getSharedPreferences("usuario",mContext.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
         editor.putInt("id",datos.getId());
         editor.putString("full_name",datos.getNombre()+" "+datos.getApellido());
         editor.putString("correo",datos.getEmail());

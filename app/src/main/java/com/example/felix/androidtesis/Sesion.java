@@ -83,6 +83,7 @@ public class Sesion extends Fragment {
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
+                                    //TODO VALIDAR LA RESPUESTA DEL SERVIDOR Y CERRAR EL FRAGMENT AL HACER EL LOGEO BIEN
                                     if (mOnLogin != null){
                                         Usuario usuario = gson.fromJson(response,Usuario.class);
                                         mOnLogin.onUserLogging(usuario);

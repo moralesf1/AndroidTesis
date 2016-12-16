@@ -10,6 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +37,7 @@ public class Registro extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Conexion mConexion;
     Button registrarBTN;
     private OnFragmentInteractionListener mListener;
 
@@ -71,11 +81,34 @@ public class Registro extends Fragment {
         registrarBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                registrar();
             }
         });
 //        Log.v("arguments",mParam1);
         return v;
+    }
+    public void registrar(){
+        mConexion = new Conexion();
+        String url = mConexion.getConexion();
+        StringRequest st = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                return super.getParams();
+            }
+        };
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
