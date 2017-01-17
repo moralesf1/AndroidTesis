@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,7 +18,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.felix.androidtesis.Modelo.Usuario;
+import com.example.felix.androidtesis.modelo.Usuario;
+import com.example.felix.androidtesis.ui.PaquetesFragment;
 
 public class Inicio extends AppCompatActivity
         /**
@@ -54,6 +56,20 @@ public class Inicio extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+
+        Fragment fragment = getSupportFragmentManager()
+                .findFragmentByTag(Constantes.FRAGMENT_PAQUETES);
+
+        if (fragment == null) {
+            fragment = PaquetesFragment.newInstance();
+        }
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_inicio, fragment, Constantes.FRAGMENT_PAQUETES)
+                .addToBackStack(null)
+                .commit();
 
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
