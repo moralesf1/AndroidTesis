@@ -8,5 +8,8 @@ public class Constantes {
 
 
     public static final String FRAGMENT_PAQUETES = "PaquetesFragment";
+    public static final String FRAGMENT_DETALLES_PAQUETE = "DetallePaqueteFragment";
+
+    public static final String PARAM_PAQUETE = "paquete";
 
 }

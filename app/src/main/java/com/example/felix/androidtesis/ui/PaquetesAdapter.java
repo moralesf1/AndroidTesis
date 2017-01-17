@@ -41,7 +41,7 @@ public class PaquetesAdapter extends RecyclerView.Adapter<PaquetesAdapter.Paquet
     @Override
     public void onBindViewHolder(PaqueteVH holder, int position) {
 
-        Paquete paquete = mPaquetes.get(position);
+        final Paquete paquete = mPaquetes.get(position);
 
         if (paquete != null) {
 
@@ -53,7 +53,7 @@ public class PaquetesAdapter extends RecyclerView.Adapter<PaquetesAdapter.Paquet
                 holder.tvDisponiblidad.setText("Ultimo disponible");
             }
 
-            holder.tvPrecio.setText(paquete.getPrecio() + "Bs.F");
+            holder.tvPrecio.setText(paquete.getPrecio() + " Bs.F");
 
 
             if (paquete.getFotos() != null && paquete.getFotos().size() > 0) {
@@ -61,6 +61,17 @@ public class PaquetesAdapter extends RecyclerView.Adapter<PaquetesAdapter.Paquet
                         .load("http://35.165.205.125/tesis/public/uploads/" + paquete.getFotos().get(0).getFoto())
                         .into(holder.ivFoto);
             }
+
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mListener != null) {
+                        mListener.onListFragmentInteraction(paquete);
+                    }
+                }
+            });
+
         }
     }
 
