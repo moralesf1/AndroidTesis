@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,6 +59,37 @@ public class Inicio extends AppCompatActivity
         toggle.syncState();
 
 
+        mostrarListaPaquetes();
+
+        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        mNavigationView.setNavigationItemSelectedListener(this);
+//        de esta manera obtego el header del navigation view
+        View Hview = mNavigationView.getHeaderView(0);
+        SharedPreferences sharedPref = getSharedPreferences("usuario", mContext.MODE_PRIVATE);
+        int id = sharedPref.getInt("id", 0);
+        Log.v("Shared: ", "" + id);
+        Menu menu = mNavigationView.getMenu();
+        MenuItem logout = menu.findItem(R.id.LogOut);
+        MenuItem sesion = menu.findItem(R.id.sesion);
+        MenuItem registro = menu.findItem(R.id.registro);
+        if (id != 0) {
+            Log.v("Logged ", "Si");
+            nombreNav = (TextView) Hview.findViewById(R.id.nameNav);
+            correoNav = (TextView) Hview.findViewById(R.id.correoNav);
+            if (nombreNav != null) {
+                nombreNav.setText(sharedPref.getString("full_name", "Invitado"));
+            }
+            if (correoNav != null) {
+                correoNav.setText(sharedPref.getString("correo", ""));
+            }
+            logout.setVisible(true);
+            sesion.setVisible(false);
+            registro.setVisible(false);
+        }
+
+    }
+
+    private void mostrarListaPaquetes() {
         Fragment fragment = getSupportFragmentManager()
                 .findFragmentByTag(Constantes.FRAGMENT_PAQUETES);
 
@@ -68,35 +100,7 @@ public class Inicio extends AppCompatActivity
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.content_inicio, fragment, Constantes.FRAGMENT_PAQUETES)
-//                .addToBackStack(null)
                 .commit();
-
-        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
-        mNavigationView.setNavigationItemSelectedListener(this);
-//        de esta manera obtego el header del navigation view
-        View Hview = mNavigationView.getHeaderView(0);
-        SharedPreferences sharedPref = getSharedPreferences("usuario",mContext.MODE_PRIVATE);
-        int id = sharedPref.getInt("id",0);
-        Log.v("Shared: ",""+id);
-        Menu menu = mNavigationView.getMenu();
-        MenuItem logout = menu.findItem(R.id.LogOut);
-        MenuItem sesion = menu.findItem(R.id.sesion);
-        MenuItem registro = menu.findItem(R.id.registro);
-        if (id != 0){
-            Log.v("Logged ","Si");
-            nombreNav = (TextView)Hview.findViewById(R.id.nameNav);
-            correoNav = (TextView)Hview.findViewById(R.id.correoNav);
-            if (nombreNav != null){
-                nombreNav.setText(sharedPref.getString("full_name","Invitado"));
-            }
-            if (correoNav != null){
-                correoNav.setText(sharedPref.getString("correo",""));
-            }
-            logout.setVisible(true);
-            sesion.setVisible(false);
-            registro.setVisible(false);
-        }
-
     }
 
     @Override
@@ -115,12 +119,12 @@ public class Inicio extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.inicio, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.inicio, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -146,7 +150,7 @@ public class Inicio extends AppCompatActivity
 
         int id = item.getItemId();
         if (id == R.id.inicio) {
-
+            mostrarListaPaquetes();
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
@@ -161,11 +165,11 @@ public class Inicio extends AppCompatActivity
         } else if (id == R.id.registro) {
 
             registro();
-        } else if(id == R.id.LogOut){
+        } else if (id == R.id.LogOut) {
             logout();
         }
 
-
+        drawer.closeDrawer(Gravity.LEFT);
         return true;
     }
 
@@ -176,7 +180,8 @@ public class Inicio extends AppCompatActivity
     public void onFragmentInteraction(Uri uri) {
         Toast.makeText(getApplicationContext(), uri.toString(), Toast.LENGTH_LONG).show();
     }
-    public void logout(){
+
+    public void logout() {
         Menu menu = mNavigationView.getMenu();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -185,15 +190,16 @@ public class Inicio extends AppCompatActivity
         MenuItem sesion = menu.findItem(R.id.sesion);
         MenuItem registro = menu.findItem(R.id.registro);
 
-        SharedPreferences sp = getSharedPreferences("usuario",mContext.MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences("usuario", mContext.MODE_PRIVATE);
         sp.edit().clear().apply();
 
         if (logout != null) {
             logout.setVisible(false);
         }
-        if (sesion != null){
+        if (sesion != null) {
             sesion.setVisible(true);
-        }if (registro != null){
+        }
+        if (registro != null) {
             registro.setVisible(true);
         }
         nombreNav = (TextView) findViewById(R.id.nameNav);
@@ -201,7 +207,8 @@ public class Inicio extends AppCompatActivity
         nombreNav.setText("Invitado");
         correoNav.setText("");
     }
-    public void registro(){
+
+    public void registro() {
 //            Bundle params = new Bundle();
 
 //            String dato = "dato 1";
@@ -230,11 +237,11 @@ public class Inicio extends AppCompatActivity
 
         nombreNav = (TextView) findViewById(R.id.nameNav);
         correoNav = (TextView) findViewById(R.id.correoNav);
-        SharedPreferences sp = getSharedPreferences("usuario",mContext.MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences("usuario", mContext.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putInt("id",datos.getId());
-        editor.putString("full_name",datos.getNombre()+" "+datos.getApellido());
-        editor.putString("correo",datos.getEmail());
+        editor.putInt("id", datos.getId());
+        editor.putString("full_name", datos.getNombre() + " " + datos.getApellido());
+        editor.putString("correo", datos.getEmail());
         editor.apply();
 
         Menu menu = mNavigationView.getMenu();
@@ -247,9 +254,10 @@ public class Inicio extends AppCompatActivity
         if (logout != null) {
             logout.setVisible(true);
         }
-        if (sesion != null){
+        if (sesion != null) {
             sesion.setVisible(false);
-        }if (registro != null){
+        }
+        if (registro != null) {
             registro.setVisible(false);
         }
 

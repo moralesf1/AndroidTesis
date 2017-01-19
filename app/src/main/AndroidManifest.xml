@@ -26,7 +26,8 @@
         <activity
             android:name=".ui.DetallesPaqueteActivity"
             android:label="@string/title_activity_detalles_paquete"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.ReservacionActivity"></activity>
     </application>
 
 </manifest>

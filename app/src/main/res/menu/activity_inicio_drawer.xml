@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single"
-        android:id="@+id/TopG">
+    <group
+        android:id="@+id/TopG"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/inicio"
+            android:checkable="true"
+            android:checked="true"
             android:icon="@drawable/ic_menu_camera"
             android:title="Inicio" />
         <item
@@ -21,8 +24,9 @@
             android:title="Tools" />
     </group>
 
-    <item android:title="Usuario"
-        android:id="@+id/logginMENU">
+    <item
+        android:id="@+id/logginMENU"
+        android:title="Usuario">
         <menu>
             <item
                 android:id="@+id/sesion"
@@ -33,11 +37,10 @@
                 android:icon="@drawable/ic_menu_send"
                 android:title="Registrarse" />
             <item
-            android:id="@+id/LogOut"
-            android:icon="@drawable/ic_menu_share"
-            android:title="LogOut"
-            android:visible="false"
-            />
+                android:id="@+id/LogOut"
+                android:icon="@drawable/ic_menu_share"
+                android:title="LogOut"
+                android:visible="false" />
         </menu>
     </item>
 

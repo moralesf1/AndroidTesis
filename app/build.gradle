@@ -1,5 +1,14 @@
 apply plugin: 'com.android.application'
 
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            url 'https://jitpack.io'
+        }
+    }
+}
+
 android {
     compileSdkVersion 24
     buildToolsVersion "25.0.1"
@@ -17,6 +26,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
+
 }
 
 dependencies {
@@ -34,7 +48,7 @@ dependencies {
     compile 'com.synnapps:carouselview:0.0.10'
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
     compile group: 'com.github.bumptech.glide', name: 'glide', version: '3.7.0'
-
+    compile 'com.github.skedgo:DateTimeRangePicker:v1.2'
 // Librerias nuevas
 
 
