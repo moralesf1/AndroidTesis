@@ -3,24 +3,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_detalles_paquete"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:background="@color/colorListBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="?android:actionBarSize">
 
-        <com.synnapps.carouselview.CarouselView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/carouselView"
+
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            app:fillColor="#FFFFFFFF"
-            app:radius="6dp"
-            app:slideInterval="3000"
-            app:strokeColor="#FF777777"
-            app:strokeWidth="1dp" />
+            android:layout_height="wrap_content">
 
+            <com.synnapps.carouselview.CarouselView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/carouselView"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                app:fillColor="#FFFFFFFF"
+                app:radius="6dp"
+                app:slideInterval="3000"
+                app:strokeColor="#FF777777"
+                app:strokeWidth="1dp" />
+
+            <TextView
+                android:id="@+id/tv_pais"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:background="#70000000"
+                android:gravity="center_horizontal"
+                android:padding="8dp"
+                android:text="Venezuela, Valencia"
+                android:textColor="@android:color/white"
+                android:textSize="14dp" />
+
+        </FrameLayout>
+
+        <TextView
+            fontPath="fonts/Roboto-Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:gravity="left|center_horizontal"
+            android:padding="8dp"
+            android:text="Descripción"
+            android:textColor="@android:color/white"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tv_descripcion"
+                fontPath="fonts/Roboto-Light.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Una descripcion aparentemente muy corta"
+                android:textSize="14dp" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

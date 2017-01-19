@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -30,6 +31,9 @@ public class DetallesPaqueteFragment extends Fragment {
 
     private Paquete mPaquete;
     private AppCompatActivity mContext;
+
+    private TextView tvPais;
+    private TextView tvDescripcion;
 
     private static final String ARG_PAQUETE = "arg_paquete";
 
@@ -68,6 +72,9 @@ public class DetallesPaqueteFragment extends Fragment {
 
         mCarouselView = (CarouselView) rootView.findViewById(R.id.carouselView);
 
+        tvDescripcion = (TextView) rootView.findViewById(R.id.tv_descripcion);
+        tvPais = (TextView) rootView.findViewById(R.id.tv_pais);
+
         return rootView;
     }
 
@@ -82,6 +89,9 @@ public class DetallesPaqueteFragment extends Fragment {
             if (actionBar != null) {
                 actionBar.setTitle(mPaquete.getTitulo());
             }
+
+            tvPais.setText(mPaquete.getEstado().getEstado() + ", " + mPaquete.getCiudad().getCiudad());
+            tvDescripcion.setText(mPaquete.getDescripcion());
 
             if (mPaquete.getFotos() != null && mPaquete.getFotos().size() > 0) {
                 mCarouselView.setPageCount(mPaquete.getFotos().size());

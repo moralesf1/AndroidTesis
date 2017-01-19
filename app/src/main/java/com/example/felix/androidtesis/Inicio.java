@@ -68,7 +68,7 @@ public class Inicio extends AppCompatActivity
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.content_inicio, fragment, Constantes.FRAGMENT_PAQUETES)
-                .addToBackStack(null)
+//                .addToBackStack(null)
                 .commit();
 
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);

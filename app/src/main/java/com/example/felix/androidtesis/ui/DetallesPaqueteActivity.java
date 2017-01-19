@@ -15,6 +15,8 @@ import com.example.felix.androidtesis.Constantes;
 import com.example.felix.androidtesis.R;
 import com.example.felix.androidtesis.modelo.Paquete;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class DetallesPaqueteActivity extends AppCompatActivity {
 
     private Paquete mPaquete;
@@ -61,6 +63,11 @@ public class DetallesPaqueteActivity extends AppCompatActivity {
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
 //                .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
 }
