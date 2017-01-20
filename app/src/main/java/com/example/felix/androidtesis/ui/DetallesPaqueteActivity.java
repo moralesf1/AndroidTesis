@@ -1,6 +1,7 @@
 package com.example.felix.androidtesis.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -29,7 +30,6 @@ public class DetallesPaqueteActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         ActionBar actionBar = getSupportActionBar();
 
         if (actionBar != null) {
@@ -44,6 +44,15 @@ public class DetallesPaqueteActivity extends AppCompatActivity {
         });
 
         mContext = this;
+
+        FloatingActionButton fabReservar = (FloatingActionButton) findViewById(R.id.fabReservar);
+        fabReservar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, ReservacionActivity.class);
+                startActivity(intent);
+            }
+        });
 
         if (getIntent() != null) {
             Bundle bundle = getIntent().getExtras();
@@ -61,7 +70,6 @@ public class DetallesPaqueteActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.content, fragment, Constantes.FRAGMENT_DETALLES_PAQUETE)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-//                .addToBackStack(null)
                 .commit();
     }
 

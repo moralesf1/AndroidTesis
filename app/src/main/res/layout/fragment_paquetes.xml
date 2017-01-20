@@ -1,84 +1,74 @@
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorListBackground"
-    android:fillViewport="true"
-    android:padding="8dp"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    android:padding="8dp">
 
-    <FrameLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:id="@+id/no_paquete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <!--<ImageView-->
+            <!--android:id="@+id/no_messagesIcon"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:scaleType="fitXY"-->
+            <!--android:src="@drawable/ic_sin_favoritos" />-->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="Oops!"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <TextView
+                android:id="@+id/no_messagesText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="No hay paquetes disponibles"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        </LinearLayout>
+
 
         <RelativeLayout
+            android:id="@+id/cargando_paquetes"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:visibility="gone">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <LinearLayout
-                android:id="@+id/no_paquete"
+            <ProgressBar
+                android:id="@+id/pb_carga"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <!--<ImageView-->
-                <!--android:id="@+id/no_messagesIcon"-->
-                <!--android:layout_width="100dp"-->
-                <!--android:layout_height="100dp"-->
-                <!--android:layout_gravity="center"-->
-                <!--android:scaleType="fitXY"-->
-                <!--android:src="@drawable/ic_sin_favoritos" />-->
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text="Oops!"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-                <TextView
-                    android:id="@+id/no_messagesText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text="No hay paquetes disponibles"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-            </LinearLayout>
-
-
-            <RelativeLayout
-                android:id="@+id/cargando_paquetes"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:visibility="gone">
-
-                <ProgressBar
-                    android:id="@+id/pb_carga"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginRight="5dp"
-                    android:indeterminateTint="@color/colorAccent"
-                    android:indeterminateTintMode="src_atop" />
-
-            </RelativeLayout>
+                android:layout_marginRight="5dp"
+                android:indeterminateTint="@color/colorAccent"
+                android:indeterminateTintMode="src_atop" />
 
         </RelativeLayout>
 
-    </FrameLayout>
-</android.support.v4.widget.NestedScrollView>
+    </RelativeLayout>
+
+</FrameLayout>
 
