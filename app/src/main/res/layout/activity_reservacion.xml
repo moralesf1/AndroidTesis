@@ -58,7 +58,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:gravity="center"
-                        android:text="2016-12-12"
+                        android:text=""
                         android:textSize="24dp" />
 
                 </LinearLayout>
@@ -93,17 +93,19 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:gravity="center"
-                        android:text="2016-12-12"
+                        android:text=""
                         android:textSize="24dp" />
                 </LinearLayout>
             </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_habitaciones"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp">
 
                 <EditText
+                    android:id="@+id/et_habitaciones"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Numero de habitaciones"

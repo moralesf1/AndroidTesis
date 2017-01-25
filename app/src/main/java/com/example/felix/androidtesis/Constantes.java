@@ -12,4 +12,5 @@ public class Constantes {
 
     public static final String PARAM_PAQUETE = "paquete";
 
+    public static final String ID_PAQUETE = "id_paquete";
 }

@@ -20,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.felix.androidtesis.Conexion;
 import com.example.felix.androidtesis.Constantes;
 import com.example.felix.androidtesis.Mysingleton;
 import com.example.felix.androidtesis.R;
@@ -104,7 +105,7 @@ public class PaquetesFragment extends Fragment {
         mRecyclerView.addItemDecoration(
                 new DividerItemDecoration(getResources()));
 
-        String url = "http://35.165.205.125/tesis/public/android/getpaquetes";
+        String url = Conexion.getConexion() + "android/getpaquetes";
 
         mCargandoPaquetes.setVisibility(View.VISIBLE);
 

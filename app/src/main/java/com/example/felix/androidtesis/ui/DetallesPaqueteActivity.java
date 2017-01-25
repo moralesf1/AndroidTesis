@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.example.felix.androidtesis.Constantes;
 import com.example.felix.androidtesis.R;
+import com.example.felix.androidtesis.Utilidades;
 import com.example.felix.androidtesis.modelo.Paquete;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -50,9 +51,14 @@ public class DetallesPaqueteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, ReservacionActivity.class);
+                intent.putExtra(Constantes.ID_PAQUETE, mPaquete.getId());
                 startActivity(intent);
             }
         });
+
+        if (!Utilidades.isUserLogged(mContext)) {
+            fabReservar.setVisibility(View.GONE);
+        }
 
         if (getIntent() != null) {
             Bundle bundle = getIntent().getExtras();
