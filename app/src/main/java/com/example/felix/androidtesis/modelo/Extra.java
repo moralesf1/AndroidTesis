@@ -1,26 +1,20 @@
 package com.example.felix.androidtesis.modelo;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
 /**
  * Created by saleventa on 2/3/17.
  */
 
-public class Habitacion {
-
+public class Extra implements Serializable {
     private int id;
-    private int user_id;
     private int hotel_id;
 
-    private String titulo;
     private String descripcion;
 
     private String deleted_at;
     private String created_at;
     private String updated_at;
-
-    private ArrayList<Foto> fotos;
-    private ArrayList<Extra> extras;
 
     public int getId() {
         return id;
@@ -30,28 +24,12 @@ public class Habitacion {
         this.id = id;
     }
 
-    public int getUserId() {
-        return user_id;
-    }
-
-    public void setUserId(int user_id) {
-        this.user_id = user_id;
-    }
-
     public int getHotelId() {
         return hotel_id;
     }
 
     public void setHotelId(int hotel_id) {
         this.hotel_id = hotel_id;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
     }
 
     public String getDescripcion() {
@@ -84,21 +62,5 @@ public class Habitacion {
 
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
-    }
-
-    public ArrayList<Foto> getFotos() {
-        return fotos;
-    }
-
-    public void setFotos(ArrayList<Foto> fotos) {
-        this.fotos = fotos;
-    }
-
-    public ArrayList<Extra> getExtras() {
-        return extras;
-    }
-
-    public void setExtras(ArrayList<Extra> extras) {
-        this.extras = extras;
     }
 }
