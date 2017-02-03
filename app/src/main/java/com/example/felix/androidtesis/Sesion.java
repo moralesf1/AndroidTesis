@@ -1,5 +1,6 @@
 package com.example.felix.androidtesis;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,11 +30,11 @@ import java.util.Map;
 public class Sesion extends Fragment {
     private OnLogin mOnLogin;
     Conexion c = new Conexion();
-    String url = c.getConexion()+"android/authuser";
+    String url = c.getConexion() + "android/authuser";
     Gson gson = new Gson();
     private AppCompatActivity mContext;
 
-    interface OnLogin{
+    interface OnLogin {
         /**
          * Esto se utiliza para hacer llamado a una funcion en la activity principal luego se implementa en la activity el llamado a esta interface
          *
@@ -41,18 +42,20 @@ public class Sesion extends Fragment {
          */
         void onUserLogging(Usuario datos);
     }
-    EditText usuario,password;
+
+    EditText usuario, password;
     Button loggin;
     TextView txtBTN;
     public static final String TAG = "Sesion";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_sesion,container,false);
-        loggin = (Button)v.findViewById(R.id.logginBTN);
-        txtBTN = (TextView)v.findViewById(R.id.registroTXT);
-        usuario = (EditText)v.findViewById(R.id.usu);
-        password = (EditText)v.findViewById(R.id.pass);
+        View v = inflater.inflate(R.layout.fragment_sesion, container, false);
+        loggin = (Button) v.findViewById(R.id.logginBTN);
+        txtBTN = (TextView) v.findViewById(R.id.registroTXT);
+        usuario = (EditText) v.findViewById(R.id.usu);
+        password = (EditText) v.findViewById(R.id.pass);
         mContext = (AppCompatActivity) getActivity();
         loggin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,28 +63,43 @@ public class Sesion extends Fragment {
                 final String user = usuario.getText().toString();
                 final String pass = password.getText().toString();
                 Boolean check = true;
-                if (user.equals("")){
+                if (user.equals("")) {
                     usuario.setError("¡Este campo es obligatorio!");
                     check = false;
                 }
-                if (!user.equals("") && !android.util.Patterns.EMAIL_ADDRESS.matcher(user).matches()){
+                if (!user.equals("") && !android.util.Patterns.EMAIL_ADDRESS.matcher(user).matches()) {
                     usuario.setError("Formato de correo invalido.");
                     usuario.setText("");
                     usuario.requestFocus();
                     check = false;
                 }
-                if (pass.equals("")){
+                if (pass.equals("")) {
                     password.setError("¡Este campo es obligatorio!");
                     check = false;
                 }
-                if (check){
+                if (check) {
+
+
+                    final ProgressDialog progressDialog = new ProgressDialog(mContext);
+                    progressDialog.setTitle("Inicio");
+                    progressDialog.setMessage("Comprobando datos...");
+                    progressDialog.setCancelable(false);
+                    progressDialog.setIndeterminate(true);
+                    progressDialog.show();
+
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
+
+                                    if (progressDialog != null && progressDialog.isShowing()) {
+                                        progressDialog.dismiss();
+                                    }
+
+
                                     //TODO VALIDAR LA RESPUESTA DEL SERVIDOR Y CERRAR EL FRAGMENT AL HACER EL LOGEO BIEN
-                                    if (mOnLogin != null){
-                                        Usuario usuario = gson.fromJson(response,Usuario.class);
+                                    if (mOnLogin != null) {
+                                        Usuario usuario = gson.fromJson(response, Usuario.class);
                                         mOnLogin.onUserLogging(usuario);
 //                                        Log.v("respuesta ",usuario[0].getNombre());
 //                                        Usuario[] usuarios = new Usuario[]{new Usuario()};
@@ -94,7 +112,13 @@ public class Sesion extends Fragment {
                             new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    final Snackbar sn = Snackbar.make(v,"¡Error en la conxion! Intente de nuevo",Snackbar.LENGTH_LONG);
+
+                                    if (progressDialog != null && progressDialog.isShowing()) {
+                                        progressDialog.dismiss();
+                                    }
+
+
+                                    final Snackbar sn = Snackbar.make(v, "¡Error en la conxion! Intente de nuevo", Snackbar.LENGTH_LONG);
                                     sn.setAction("OK", new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
@@ -103,13 +127,13 @@ public class Sesion extends Fragment {
                                     }).show();
                                     error.printStackTrace();
                                 }
-                            }){
+                            }) {
                         @Override
                         protected Map<String, String> getParams() throws AuthFailureError {
-                            Map<String,String> params = new HashMap<>();
-                            params.put("email",user);
-                            params.put("password",pass);
-                            params.put("recordar","false");
+                            Map<String, String> params = new HashMap<>();
+                            params.put("email", user);
+                            params.put("password", pass);
+                            params.put("recordar", "false");
                             return params;
                         }
                     };
@@ -121,9 +145,9 @@ public class Sesion extends Fragment {
             @Override
             public void onClick(View v) {
 //            Registro registro = Registro.newInstance("hola","hola2");
-            Registro registro = new Registro();
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content_inicio,registro,registro.TAG).commit();
+                Registro registro = new Registro();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.content_inicio, registro, registro.TAG).commit();
 
 
 //                if(mOnLogin != null){

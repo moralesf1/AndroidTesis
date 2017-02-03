@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.felix.androidtesis.modelo.Usuario;
+import com.example.felix.androidtesis.ui.HotelesFragment;
 import com.example.felix.androidtesis.ui.PaquetesFragment;
 
 public class Inicio extends AppCompatActivity
@@ -103,6 +105,20 @@ public class Inicio extends AppCompatActivity
                 .commit();
     }
 
+    private void mostrarListaHoteles() {
+        Fragment fragment = getSupportFragmentManager()
+                .findFragmentByTag(Constantes.FRAGMENT_HOTELES);
+
+        if (fragment == null) {
+            fragment = HotelesFragment.newInstance();
+        }
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_inicio, fragment, Constantes.FRAGMENT_HOTELES)
+                .commit();
+    }
+
     @Override
     protected void onPostResume() {
         super.onPostResume();
@@ -148,12 +164,17 @@ public class Inicio extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         FragmentManager fragmentManager = getSupportFragmentManager();
 
+
         int id = item.getItemId();
         if (id == R.id.inicio) {
             mostrarListaPaquetes();
+
+            mostrarTitulo("Inicio");
+
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-
+            mostrarListaHoteles();
+            mostrarTitulo("Hoteles");
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
@@ -171,6 +192,14 @@ public class Inicio extends AppCompatActivity
 
         drawer.closeDrawer(Gravity.LEFT);
         return true;
+    }
+
+    private void mostrarTitulo(String titulo) {
+        ActionBar actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            actionBar.setTitle(titulo);
+        }
     }
 
     @Override

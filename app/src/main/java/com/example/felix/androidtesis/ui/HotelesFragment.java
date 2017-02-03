@@ -2,6 +2,7 @@ package com.example.felix.androidtesis.ui;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.felix.androidtesis.Conexion;
+import com.example.felix.androidtesis.Constantes;
 import com.example.felix.androidtesis.Mysingleton;
 import com.example.felix.androidtesis.R;
 import com.example.felix.androidtesis.modelo.Hotel;
@@ -111,11 +113,9 @@ public class HotelesFragment extends Fragment {
                         HotelesAdapter adapter = new HotelesAdapter(new ArrayList<>(Arrays.asList(hoteles)), mContext, new HotelesAdapter.OnListFragmentInteractionListener() {
                             @Override
                             public void onListFragmentInteraction(Hotel hotel) {
-//                                Intent intent = new Intent(mContext, DetallesPaqueteActivity.class);
-//                                Bundle bundle = new Bundle();
-//                                bundle.putSerializable(Constantes.PARAM_PAQUETE, paquete);
-//                                intent.putExtras(bundle);
-//                                mContext.startActivity(intent);
+                                Intent intent = new Intent(mContext, DetallesHotelActivity.class);
+                                intent.putExtra(Constantes.PARAM_ID_HOTEL, hotel.getId());
+                                mContext.startActivity(intent);
                             }
                         });
 

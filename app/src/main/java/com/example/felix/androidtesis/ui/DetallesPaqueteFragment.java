@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.felix.androidtesis.Conexion;
 import com.example.felix.androidtesis.Constantes;
 import com.example.felix.androidtesis.R;
 import com.example.felix.androidtesis.modelo.Paquete;
@@ -100,7 +101,7 @@ public class DetallesPaqueteFragment extends Fragment {
                     @Override
                     public void setImageForPosition(int position, ImageView imageView) {
                         Glide.with(mContext)
-                                .load("http://35.165.205.125/tesis/public/uploads/" + mPaquete.getFotos().get(position).getFoto())
+                                .load(Conexion.getConexion() + "uploads/" + mPaquete.getFotos().get(position).getFoto())
                                 .into(imageView);
                     }
                 };

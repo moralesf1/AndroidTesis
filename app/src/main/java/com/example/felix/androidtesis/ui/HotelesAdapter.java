@@ -47,7 +47,7 @@ public class HotelesAdapter extends RecyclerView.Adapter<HotelesAdapter.HotelVH>
             holder.tvTitulo.setText(hotel.getHotel());
 
             holder.tvDisponiblidad.setText(hotel.getDescripcion() != null
-                    && hotel.getDescripcion().length() > 0 ? hotel.getDescripcion().substring(0, 12) + "..." : "");
+                    && hotel.getDescripcion().length() > 0 ? hotel.getDescripcion().substring(0, 18) + "..." : "");
 //            if (hotel.getDisponible() > 1) {
 //                holder.tvDisponiblidad.setText(hotel.getDisponible() + " disponibles");
 //            } else {
