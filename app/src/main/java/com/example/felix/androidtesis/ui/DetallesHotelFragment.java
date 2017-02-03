@@ -41,7 +41,7 @@ public class DetallesHotelFragment extends Fragment {
     private static final String ARG_ID_HOTEL = "arg_id_hotel";
 
     // TODO: Rename and change types of parameters
-    private String mIdHotel;
+    private int mIdHotel;
     private AppCompatActivity mContext;
     private Gson mGson = new Gson();
 
@@ -78,7 +78,7 @@ public class DetallesHotelFragment extends Fragment {
         mContext = (AppCompatActivity) getActivity();
 
         if (getArguments() != null) {
-            mIdHotel = getArguments().getString(ARG_ID_HOTEL);
+            mIdHotel = getArguments().getInt(ARG_ID_HOTEL);
         }
     }
 
@@ -92,7 +92,7 @@ public class DetallesHotelFragment extends Fragment {
         tvDescripcion = (TextView) rootView.findViewById(R.id.tv_descripcion);
         tvPais = (TextView) rootView.findViewById(R.id.tv_pais);
 
-        String url = Conexion.getConexion() + "android/gethotel/" + mIdHotel;
+        final String url = Conexion.getConexion() + "android/gethotel/" + mIdHotel;
 
         final ProgressDialog progressDialog = new ProgressDialog(mContext);
 
@@ -113,9 +113,11 @@ public class DetallesHotelFragment extends Fragment {
                     @Override
                     public void onResponse(String response) {
                         Hotel hotel = mGson.fromJson(response, Hotel.class);
-                        Log.d("RESPUESTA", response);
+                        Log.d("RESPUESTA", url);
                         mHotel = hotel;
-
+                        if (progressDialog != null && progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
                         if (hotel != null) {
                             ActionBar actionBar = mContext.getSupportActionBar();
 
@@ -127,7 +129,6 @@ public class DetallesHotelFragment extends Fragment {
                             tvDescripcion.setText(hotel.getDescripcion());
 
                             if (hotel.getFotos() != null && hotel.getFotos().size() > 0) {
-                                mCarouselView.setPageCount(hotel.getFotos().size());
 
                                 ImageListener imageListener = new ImageListener() {
                                     @Override
@@ -138,12 +139,19 @@ public class DetallesHotelFragment extends Fragment {
                                     }
                                 };
                                 mCarouselView.setImageListener(imageListener);
+
+                                mCarouselView.setPageCount(hotel.getFotos().size());
+
+
                             }
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                if (progressDialog != null && progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
                 error.printStackTrace();
             }
         });
