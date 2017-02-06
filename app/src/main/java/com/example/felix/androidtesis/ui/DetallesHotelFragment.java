@@ -4,7 +4,12 @@ package com.example.felix.androidtesis.ui;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,13 +27,13 @@ import com.bumptech.glide.Glide;
 import com.example.felix.androidtesis.Conexion;
 import com.example.felix.androidtesis.Mysingleton;
 import com.example.felix.androidtesis.R;
+import com.example.felix.androidtesis.modelo.Habitacion;
 import com.example.felix.androidtesis.modelo.Hotel;
 import com.google.gson.Gson;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,6 +55,8 @@ public class DetallesHotelFragment extends Fragment {
     private TextView tvPais;
     private Hotel mHotel;
 
+    private ViewPager mPager;
+    private PagerAdapter mPagerAdapter;
 
     public DetallesHotelFragment() {
         // Required empty public constructor
@@ -92,6 +99,8 @@ public class DetallesHotelFragment extends Fragment {
         tvDescripcion = (TextView) rootView.findViewById(R.id.tv_descripcion);
         tvPais = (TextView) rootView.findViewById(R.id.tv_pais);
 
+        mPager = (ViewPager) rootView.findViewById(R.id.pager);
+
         final String url = Conexion.getConexion() + "android/gethotel/" + mIdHotel;
 
         final ProgressDialog progressDialog = new ProgressDialog(mContext);
@@ -124,6 +133,10 @@ public class DetallesHotelFragment extends Fragment {
                             if (actionBar != null) {
                                 actionBar.setTitle(hotel.getHotel());
                             }
+
+                            mPagerAdapter = new ListaHabitacionesPagerAdapter(getFragmentManager(), hotel.getHabitaciones());
+                            mPager.setAdapter(mPagerAdapter);
+
 
                             tvPais.setText(hotel.getEstado().getEstado() + ", " + hotel.getCiudad().getCiudad());
                             tvDescripcion.setText(hotel.getDescripcion());
@@ -160,6 +173,32 @@ public class DetallesHotelFragment extends Fragment {
                 .addToRequestQue(stringRequest);
 
         return rootView;
+    }
+
+
+    private class ListaHabitacionesPagerAdapter extends FragmentStatePagerAdapter {
+
+        private ArrayList<Habitacion> mHabitaciones;
+
+        public ListaHabitacionesPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+
+        public ListaHabitacionesPagerAdapter(FragmentManager fm, @NonNull ArrayList<Habitacion> habitaciones) {
+            super(fm);
+            mHabitaciones = habitaciones;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return DetallesHabitacionFragment.newInstance(mHabitaciones.get(position));
+        }
+
+        @Override
+        public int getCount() {
+            return mHabitaciones.size();
+        }
     }
 
 }

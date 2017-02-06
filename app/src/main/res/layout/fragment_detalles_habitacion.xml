@@ -1,0 +1,55 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.felix.androidtesis.ui.DetallesHabitacionFragment">
+
+
+    <TextView
+        android:id="@+id/tv_titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#202020"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="Ankunding-Hamill"
+        android:textColor="#808080"
+        android:textSize="18dp" />
+
+    <ImageView
+        android:id="@+id/iv_imagen"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/patron" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/tv_precio"
+            fontPath="fonts/Roboto-Medium.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Bs 198.634,00"
+            android:textColor="@android:color/white"
+            android:textSize="38dp" />
+
+        <TextView
+            fontPath="fonts/Roboto-Light.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Por persona"
+            android:textColor="@android:color/white"
+            android:textSize="12dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

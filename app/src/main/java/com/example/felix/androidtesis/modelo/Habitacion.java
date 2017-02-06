@@ -1,12 +1,13 @@
 package com.example.felix.androidtesis.modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by saleventa on 2/3/17.
  */
 
-public class Habitacion {
+public class Habitacion implements Serializable {
 
     private int id;
     private int user_id;
@@ -14,6 +15,7 @@ public class Habitacion {
 
     private String titulo;
     private String descripcion;
+    private String precio;
 
     private String deleted_at;
     private String created_at;
@@ -100,5 +102,13 @@ public class Habitacion {
 
     public void setExtras(ArrayList<Extra> extras) {
         this.extras = extras;
+    }
+
+    public String getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(String precio) {
+        this.precio = precio;
     }
 }

@@ -7,7 +7,7 @@ import com.android.volley.toolbox.StringRequest;
  */
 
 public class Conexion {
-    private static String conexion = "http://35.165.205.125/tesis/public/";
+    private static String conexion = "http://192.168.0.108:8000/";
 
     public static String getConexion() {
         return conexion;
