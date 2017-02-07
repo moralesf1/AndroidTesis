@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.felix.androidtesis.Conexion;
 import com.example.felix.androidtesis.R;
 import com.example.felix.androidtesis.modelo.Hotel;
 
@@ -59,7 +60,7 @@ public class HotelesAdapter extends RecyclerView.Adapter<HotelesAdapter.HotelVH>
 
             if (hotel.getFotos() != null && hotel.getFotos().size() > 0) {
                 Glide.with(mContext)
-                        .load("http://35.165.205.125/tesis/public/uploads/hoteles/" + hotel.getFotos().get(0).getFoto())
+                        .load(Conexion.getConexion()+"uploads/hoteles/" + hotel.getFotos().get(0).getFoto())
                         .into(holder.ivFoto);
             }
 

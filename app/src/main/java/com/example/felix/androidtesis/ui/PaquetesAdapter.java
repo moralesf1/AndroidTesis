@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.felix.androidtesis.Conexion;
 import com.example.felix.androidtesis.modelo.Paquete;
 import com.example.felix.androidtesis.R;
 
@@ -58,7 +59,7 @@ public class PaquetesAdapter extends RecyclerView.Adapter<PaquetesAdapter.Paquet
 
             if (paquete.getFotos() != null && paquete.getFotos().size() > 0) {
                 Glide.with(mContext)
-                        .load("http://35.165.205.125/tesis/public/uploads/" + paquete.getFotos().get(0).getFoto())
+                        .load(Conexion.getConexion()+"uploads/" + paquete.getFotos().get(0).getFoto())
                         .into(holder.ivFoto);
             }
 
